@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./Acidez.py">"
+	<title>Verificar pH do leite</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f2f2f2;
+			padding: 20px;
+		}
+		h1 {
+			color: #333;
+			margin-bottom: 20px;
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+		input[type="number"] {
+			padding: 10px;
+			font-size: 16px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			margin-bottom: 20px;
+		}
+		button {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px;
+			border: none;
+			border-radius: 5px;
+			font-size: 16px;
+			cursor: pointer;
+		}
+		button:hover {
+			background-color: #3e8e41;
+		}
+		p {
+			margin-top: 20px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<h1>Verificar pH do leite</h1>
+	<form>
+		<label for="ph">Digite o valor do pH do leite:</label>
+		<input type="number" id="ph" name="ph" step="0.1" required>
+		<button type="submit">Verificar</button>
+	</form>
+	<div id="resultado"></div>
+	<script>
+		const form = document.querySelector('form');
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			const pH = parseFloat(document.querySelector('#ph').value);
+			let resultado = '';
+			if (6.5 <= pH && pH <= 6.7) {
+				resultado = 'O leite está adequado para consumo.';
+			} else {
+				resultado = 'O leite não está adequado para consumo.';
+				const acidez = (pH - 6.5) * 1000;
+				const dornic = acidez / 0.085;
+				resultado += ` A acidez do leite é de ${dornic.toFixed(2)} graus Dornic.`;
+			}
+			document.querySelector('#resultado').textContent = resultado;
+		});
+	</script>
+</body>
+</html>
